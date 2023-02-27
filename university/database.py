@@ -39,7 +39,8 @@ class Table:
             file = open(self.db_file_path, 'r')
         except FileNotFoundError as e:
             print(f"File {self.db_file_path} not found? have you consider running create_database() first?")
-            
+            raise e from e
+        
         reader = csv.DictReader(file)
         for index, row in enumerate(reader):
             # if we want all the data, continue to append every row
@@ -115,6 +116,7 @@ class Table:
             file = open(self.db_sequence_id_file_path, 'r')
         except FileNotFoundError as e:
             print(f"File {self.db_sequence_id_file_path} not found? have you consider running create_database() first?")
+            raise e from e
         
         id = file.read()
         if id != "":
