@@ -156,6 +156,7 @@ class Table:
         return result
         
     def update(self, query : dict, data : dict) -> None:
+        data = {key:value for key, value in data.items() if key}
         query.update(data)
         self.__create_change(query, "update", data)
         
