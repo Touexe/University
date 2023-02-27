@@ -4,8 +4,9 @@ import csv
 
 from .models import get_column_names
 from . import models
+import os
 
-data_folder_path = "data"
+data_folder_path = os.getcwd() + "/data"
 
     
 class Table:
