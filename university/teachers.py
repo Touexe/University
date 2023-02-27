@@ -20,5 +20,5 @@ class Teachers:
         teachers_table.delete(query)
         teachers_table.save()
         
-    def count_teacher(self, query: dict) -> int:
+    def count_teacher(self, query: dict = {}) -> int:
         return teachers_table.count(query)

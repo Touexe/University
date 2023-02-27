@@ -20,7 +20,7 @@ class Faculties:
         faculties_table.delete(query)
         faculties_table.save()
         
-    def count_faculty(self, query: dict) -> int:
+    def count_faculty(self, query: dict = {}) -> int:
         return faculties_table.count(query)
     
     

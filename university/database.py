@@ -164,7 +164,7 @@ class Table:
         self.__create_change(query, "delete", {})
         
     
-    def count(self, query : dict) -> int:
+    def count(self, query : dict = {}) -> int:
         count = 0
         
         offset = 0
@@ -174,6 +174,9 @@ class Table:
             if len(loaded_data) == 0:
                 break
             
+            if not query:
+                offset += limit
+                continue
             
             for row in loaded_data:
                 for key, value in query.items():

@@ -20,6 +20,6 @@ class Courses:
         courses_table.delete(query)
         courses_table.save()
         
-    def count_course(self, query: dict) -> int:
+    def count_course(self, query: dict = {}) -> int:
         return courses_table.count(query)
     

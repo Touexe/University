@@ -20,7 +20,7 @@ class TeacherDetails:
         teacher_detail_table.delete(query)
         teacher_detail_table.save()
         
-    def count_teacher_detail(self, query: dict) -> int:
+    def count_teacher_detail(self, query: dict = {}) -> int:
         return teacher_detail_table.count(query)
     
     

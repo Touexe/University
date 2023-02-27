@@ -20,7 +20,7 @@ class Accounts:
         accounts_table.delete(query)
         accounts_table.save()
         
-    def count_account(self, query: dict) -> int:
+    def count_account(self, query: dict = {}) -> int:
         return accounts_table.count(query)
     
     

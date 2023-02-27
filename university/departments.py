@@ -20,5 +20,5 @@ class Departments:
         departments_table.delete(query)
         departments_table.save()
         
-    def count_department(self, query: dict) -> int:
+    def count_department(self, query: dict = {}) -> int:
         return departments_table.count(query)
