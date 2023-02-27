@@ -7,7 +7,7 @@ class StudentTeachers:
         student_teacher_table.save()
         return data
     
-    def read_student_teacher(self, query: dict) -> list:
+    def read_student_teacher(self, query: dict = {}) -> list:
         data = student_teacher_table.read(query)
         return data
     

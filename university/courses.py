@@ -7,7 +7,7 @@ class Courses:
         courses_table.save()
         return data
     
-    def read_course(self, query: dict) -> list:
+    def read_course(self, query: dict = {}) -> list:
         data = courses_table.read(query)
         return data
     

@@ -7,7 +7,7 @@ class Departments:
         departments_table.save()
         return data
     
-    def read_department(self, query: dict) -> list:
+    def read_department(self, query: dict = {}) -> list:
         data = departments_table.read(query)
         return data
     

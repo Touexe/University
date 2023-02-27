@@ -7,7 +7,7 @@ class Faculties:
         faculties_table.save()
         return data
     
-    def read_faculty(self, query: dict) -> list:
+    def read_faculty(self, query: dict = {}) -> list:
         data = faculties_table.read(query)
         return data
     

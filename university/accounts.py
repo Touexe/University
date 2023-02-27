@@ -7,7 +7,7 @@ class Accounts:
         accounts_table.save()
         return data
     
-    def read_account(self, query: dict) -> list:
+    def read_account(self, query: dict = {}) -> list:
         data = accounts_table.read(query)
         return data
     

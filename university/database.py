@@ -169,6 +169,9 @@ class Table:
         
     
     def count(self, query : dict = {}) -> int:
+        if not query:
+            return len(self.__load_data(all = True))
+        
         count = 0
         
         offset = 0
@@ -177,11 +180,6 @@ class Table:
             loaded_data = self.__load_data(offset = offset, limit = limit)
             if len(loaded_data) == 0:
                 break
-            
-            if not query:
-                offset += limit
-                count += 1
-                continue
             
             for row in loaded_data:
                 for key, value in query.items():

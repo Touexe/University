@@ -7,7 +7,7 @@ class StudentDetails:
         student_detail_table.save()
         return data
     
-    def read_student_detail(self, query: dict) -> list:
+    def read_student_detail(self, query: dict = {}) -> list:
         data = student_detail_table.read(query)
         return data
     
