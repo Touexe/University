@@ -7,3 +7,4 @@ from .student_details import StudentDetails
 from .student_teachers import StudentTeachers
 from .courses import Courses
 from .accounts import Accounts
+from .database import create_database

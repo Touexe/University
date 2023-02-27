@@ -6,20 +6,22 @@ from .models import get_column_names
 from . import models
 
 data_folder_path = "data"
+
+    
 class Table:
     def __init__(self, db_name : str, columns_names : list):
         self.db_name = db_name
         self.db_file_name = db_name + ".csv"
         self.db_sequence_id_file_name = db_name + "_sequence_id" + ".txt"
+        
         self.db_file_path = data_folder_path + "/" + self.db_file_name
         self.db_sequence_id_file_path = data_folder_path + "/" + self.db_sequence_id_file_name
         self.columns_names = columns_names
         
-        self.__create_schema()
         self.__last_sequence_id = 0
         self.__changes = deque()
     
-    def __create_schema(self):
+    def create_schema(self):
         os.makedirs(data_folder_path, exist_ok=True)
         
         if not os.path.exists(self.db_file_path):
@@ -33,24 +35,29 @@ class Table:
         
     def __load_data(self, offset : int = 0, limit : int = 0, all : bool = False):
         rows = []
-        with open(data_folder_path + "/" + self.db_file_name, 'r') as f:
-            reader = csv.DictReader(f)
-            for index, row in enumerate(reader):
-                # if we want all the data, continue to append every row
-                if all is True:
-                    rows.append(row)
-                    continue
-                
-                # if we have offset and we are still in the offset, continue
-                if index < offset:
-                    continue
-                
-                # if we have limit and we reached the limit, break out of the loop
-                if limit > 0 and (index - offset) >= limit:
-                    break
-                
+        try:
+            file = open(self.db_file_path, 'r')
+        except FileNotFoundError as e:
+            print(f"File {self.db_file_path} not found? have you consider running create_database() first?")
+            
+        reader = csv.DictReader(file)
+        for index, row in enumerate(reader):
+            # if we want all the data, continue to append every row
+            if all is True:
                 rows.append(row)
-                
+                continue
+            
+            # if we have offset and we are still in the offset, continue
+            if index < offset:
+                continue
+            
+            # if we have limit and we reached the limit, break out of the loop
+            if limit > 0 and (index - offset) >= limit:
+                break
+            
+            rows.append(row)
+        
+        file.close()
         return rows   
     
     def __create_change(self, query : dict, action : str, data : dict):
@@ -104,10 +111,16 @@ class Table:
             data.pop("id")
         
         last_id = 0
-        with open(data_folder_path + "/" + self.db_sequence_id_file_name, 'r') as f:
-            id = f.read()
-            if id != "":
-                last_id = int(id)
+        try:
+            file = open(self.db_sequence_id_file_path, 'r')
+        except FileNotFoundError as e:
+            print(f"File {self.db_sequence_id_file_path} not found? have you consider running create_database() first?")
+        
+        id = file.read()
+        if id != "":
+            last_id = int(id)
+        
+        file.close()
             
         if self.__last_sequence_id == 0:
             self.__last_sequence_id = last_id
@@ -190,3 +203,22 @@ teachers_table = Table("teachers", columns_names=get_column_names(models.teacher
 students_table = Table("students", columns_names=get_column_names(models.student))
 accounts_table = Table("accounts", columns_names=get_column_names(models.account))
 
+
+def create_database():
+    tables = [
+        student_detail_table,
+        teacher_detail_table,
+        student_teacher_table,
+        course_detail_table,
+        teacher_course_table,
+        faculties_table,
+        departments_table,
+        courses_table,
+        teachers_table,
+        students_table,
+        accounts_table
+    ]
+    
+    # create all the database files
+    for table in tables:
+        table.create_schema()
