@@ -206,6 +206,7 @@ students_table = Table("students", columns_names=get_column_names(models.student
 accounts_table = Table("accounts", columns_names=get_column_names(models.account))
 
 
+
 def create_database():
     tables = [
         student_detail_table,
