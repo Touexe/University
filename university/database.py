@@ -176,6 +176,7 @@ class Table:
             
             if not query:
                 offset += limit
+                count += 1
                 continue
             
             for row in loaded_data:
