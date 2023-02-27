@@ -134,6 +134,9 @@ class Table:
         return data
     
     def read(self, query : dict) -> list:
+        if not query:
+            return self.__load_data(all = True)
+        
         result = []
         
         offset = 0
