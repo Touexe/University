@@ -69,12 +69,14 @@ class course(BaseModel):
     type: str = ""
     dept_id: Optional[int] = None
 
+@dataclasses.dataclass
 class courseDetail(BaseModel):
     course_id: Optional[int] = None
     student_id: Optional[int] = None
     score: str = ""
     grade: str = ""
-
+        
+@dataclasses.dataclass
 class account(BaseModel):
     id: Optional[int] = None
     username: str = ""
@@ -82,7 +84,8 @@ class account(BaseModel):
     phone_no: str = ""
     role: str = ""
     user_id: Optional[int] = None
-
+        
+@dataclasses.dataclass
 class teacherCourse(BaseModel):
     teacher_id: Optional[int] = None
     course_id: Optional[int] = None
